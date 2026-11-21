@@ -1,0 +1,239 @@
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>MYstore POS</title>
+<style>
+:root{
+  --blue:#1769aa;
+  --dark:#124d80;
+  --bg:#f3f6fb;
+  --white:#fff;
+  --text:#243447;
+  --muted:#718096;
+  --line:#e2e8f0;
+}
+*{box-sizing:border-box}
+body{
+  margin:0;
+  font-family:Arial,sans-serif;
+  background:var(--bg);
+  color:var(--text);
+}
+header{
+  background:var(--blue);
+  color:white;
+  padding:17px 22px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+.logo{font-size:23px;font-weight:bold}
+header small{opacity:.8}
+main{padding:20px;max-width:1200px;margin:auto}
+.welcome{
+  background:linear-gradient(120deg,#1769aa,#124d80);
+  color:white;
+  padding:22px;
+  border-radius:14px;
+  margin-bottom:18px;
+}
+.welcome h2{margin:0 0 8px}
+.welcome p{margin:0;opacity:.85}
+.grid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:12px;
+}
+.card{
+  background:white;
+  border:1px solid var(--line);
+  border-radius:12px;
+  padding:17px;
+  min-width:0;
+}
+.card small{color:var(--muted)}
+.value{
+  font-size:23px;
+  font-weight:bold;
+  margin-top:10px;
+}
+.section{
+  margin-top:22px;
+}
+.section h3{margin-bottom:13px}
+.actions{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:12px;
+}
+.action{
+  background:white;
+  border:1px solid var(--line);
+  border-radius:12px;
+  padding:17px 10px;
+  text-align:center;
+  cursor:pointer;
+  font-size:14px;
+}
+.action span{
+  display:block;
+  font-size:26px;
+  margin-bottom:9px;
+}
+.action:hover{background:#eaf4fc}
+.panel{
+  background:white;
+  border:1px solid var(--line);
+  border-radius:12px;
+  padding:17px;
+}
+table{width:100%;border-collapse:collapse}
+th,td{
+  padding:13px 10px;
+  border-bottom:1px solid var(--line);
+  text-align:left;
+  font-size:13px;
+}
+th{color:var(--muted);background:#f8fafc}
+.status{
+  color:#16834b;
+  background:#e4f7eb;
+  padding:5px 9px;
+  border-radius:20px;
+  font-size:11px;
+}
+nav{
+  display:flex;
+  justify-content:space-around;
+  position:fixed;
+  bottom:0;
+  left:0;
+  right:0;
+  background:white;
+  border-top:1px solid var(--line);
+  padding:10px 4px;
+  z-index:10;
+}
+nav button{
+  border:0;
+  background:none;
+  color:var(--muted);
+  font-size:12px;
+  cursor:pointer;
+}
+nav button b{display:block;font-size:21px;margin-bottom:3px}
+nav button.active{color:var(--blue)}
+footer{height:65px}
+@media(max-width:700px){
+  header{padding:14px 15px}
+  main{padding:12px 10px}
+  .welcome{padding:17px}
+  .welcome h2{font-size:19px}
+  .grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+  .card{padding:12px}
+  .value{font-size:19px}
+  .actions{grid-template-columns:repeat(2,1fr);gap:8px}
+  .action{padding:13px 6px}
+  .section{margin-top:16px}
+  th,td{padding:10px 6px;font-size:11px}
+}
+@media(min-width:701px){
+  nav{position:static;margin-top:25px;border-radius:12px}
+  footer{height:10px}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div>
+    <div class="logo">MYstore</div>
+    <small>Management & POS System</small>
+  </div>
+  <div>Admin ▾</div>
+</header>
+
+<main>
+  <div class="welcome">
+    <h2>Selamat Datang di MYstore</h2>
+    <p>Dashboard toko dan sistem kasir</p>
+  </div>
+
+  <div class="grid">
+    <div class="card">
+      <small>Total Penjualan</small>
+      <div class="value">Rp 0</div>
+    </div>
+    <div class="card">
+      <small>Total Transaksi</small>
+      <div class="value">0</div>
+    </div>
+    <div class="card">
+      <small>Total Produk</small>
+      <div class="value">0</div>
+    </div>
+    <div class="card">
+      <small>Stok Menipis</small>
+      <div class="value">0</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h3>Menu Utama</h3>
+    <div class="actions">
+      <div class="action" onclick="openPage('Kasir')"><span>🛒</span>Kasir</div>
+      <div class="action" onclick="openPage('Produk')"><span>📦</span>Master Produk</div>
+      <div class="action" onclick="openPage('Penjualan')"><span>💰</span>Penjualan</div>
+      <div class="action" onclick="openPage('Pembelian')"><span>🧾</span>Pembelian</div>
+      <div class="action" onclick="openPage('Stok')"><span>🏬</span>Persediaan</div>
+      <div class="action" onclick="openPage('Laporan')"><span>📊</span>Laporan</div>
+      <div class="action" onclick="openPage('Pelanggan')"><span>👥</span>Pelanggan</div>
+      <div class="action" onclick="openPage('Pengaturan')"><span>⚙️</span>Pengaturan</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h3>Penjualan Terbaru</h3>
+    <div class="panel">
+      <table>
+        <thead>
+          <tr>
+            <th>Transaksi</th>
+            <th>Tanggal</th>
+            <th>Total</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody id="sales">
+          <tr>
+            <td colspan="4" style="text-align:center;color:#718096">
+              Belum ada transaksi
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <nav>
+    <button class="active" onclick="openPage('Home')"><b>⌂</b>Home</button>
+    <button onclick="openPage('Kasir')"><b>🛒</b>Kasir</button>
+    <button onclick="openPage('Produk')"><b>📦</b>Produk</button>
+    <button onclick="openPage('Laporan')"><b>▥</b>Laporan</button>
+    <button onclick="openPage('Pengaturan')"><b>⚙</b>Menu</button>
+  </nav>
+  <footer></footer>
+</main>
+
+<script>
+function openPage(page){
+  if(page==="Home") return;
+  alert("Menu "+page+" akan dikembangkan pada tahap berikutnya.");
+}
+</script>
+
+</body>
+</html>
