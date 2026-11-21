@@ -1,239 +1,183 @@
-
 <!DOCTYPE html>
 <html lang="id">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>MYstore POS</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#1769aa">
+<title>MYstore | Management & POS</title>
 <style>
 :root{
-  --blue:#1769aa;
-  --dark:#124d80;
-  --bg:#f3f6fb;
-  --white:#fff;
-  --text:#243447;
-  --muted:#718096;
-  --line:#e2e8f0;
+  --blue:#1769aa;--blue-dark:#124d80;--blue-soft:#eaf3fb;
+  --bg:#f3f6fb;--white:#fff;--text:#243447;--muted:#718096;
+  --line:#e2e8f0;--green:#16834b;--shadow:0 4px 16px rgba(25,55,90,.06);
 }
 *{box-sizing:border-box}
-body{
-  margin:0;
-  font-family:Arial,sans-serif;
-  background:var(--bg);
-  color:var(--text);
+html{min-height:100%;scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--text);font-family:Arial,Helvetica,sans-serif;padding-bottom:calc(78px + env(safe-area-inset-bottom))}
+button{font:inherit}
+.topbar{
+  min-height:68px;background:var(--blue);color:#fff;padding:12px 20px;
+  display:flex;align-items:center;justify-content:space-between;gap:12px;
+  box-shadow:0 2px 8px rgba(0,0,0,.08)
 }
-header{
-  background:var(--blue);
-  color:white;
-  padding:17px 22px;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-}
-.logo{font-size:23px;font-weight:bold}
-header small{opacity:.8}
-main{padding:20px;max-width:1200px;margin:auto}
+.brand{min-width:0}.brand-name{font-size:23px;font-weight:800;letter-spacing:.2px}
+.brand-sub{font-size:12px;opacity:.86;margin-top:3px}
+.admin{border:1px solid rgba(255,255,255,.28);background:rgba(255,255,255,.12);color:#fff;border-radius:9px;padding:9px 12px;font-size:13px;white-space:nowrap}
+.layout{max-width:1180px;margin:0 auto;padding:20px}
 .welcome{
-  background:linear-gradient(120deg,#1769aa,#124d80);
-  color:white;
-  padding:22px;
-  border-radius:14px;
-  margin-bottom:18px;
+  color:#fff;background:linear-gradient(120deg,#1769aa,#124d80);
+  border-radius:16px;padding:23px 24px;margin-bottom:18px;
+  box-shadow:var(--shadow);display:flex;align-items:center;justify-content:space-between;gap:16px
 }
-.welcome h2{margin:0 0 8px}
-.welcome p{margin:0;opacity:.85}
-.grid{
-  display:grid;
-  grid-template-columns:repeat(4,1fr);
-  gap:12px;
+.welcome h1{font-size:23px;margin:0 0 7px}.welcome p{margin:0;color:rgba(255,255,255,.86);font-size:15px}
+.welcome-mark{font-size:36px;opacity:.9}
+.stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:13px}
+.stat{background:#fff;border:1px solid var(--line);border-radius:14px;padding:17px;min-width:0;box-shadow:var(--shadow)}
+.stat-top{display:flex;align-items:center;justify-content:space-between;gap:8px}
+.stat-label{font-size:13px;color:var(--muted)}
+.stat-icon{width:34px;height:34px;border-radius:10px;background:var(--blue-soft);display:grid;place-items:center;font-size:17px;flex:none}
+.stat-value{font-size:24px;font-weight:800;margin-top:12px;overflow-wrap:anywhere}
+.section{margin-top:25px}
+.section-head{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:13px}
+.section h2{font-size:18px;margin:0}
+.section-note{font-size:12px;color:var(--muted)}
+.menu-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+.menu-item{
+  border:1px solid var(--line);background:#fff;border-radius:14px;padding:17px 10px;
+  min-height:112px;text-align:center;color:var(--text);cursor:pointer;
+  box-shadow:var(--shadow);transition:transform .15s,border-color .15s
 }
-.card{
-  background:white;
-  border:1px solid var(--line);
-  border-radius:12px;
-  padding:17px;
-  min-width:0;
+.menu-item:active{transform:scale(.98)}.menu-item:hover{border-color:#9dc4e5}
+.menu-icon{width:44px;height:44px;border-radius:13px;background:var(--blue-soft);display:grid;place-items:center;font-size:24px;margin:0 auto 10px}
+.menu-label{font-size:14px;font-weight:700}
+.panel{background:#fff;border:1px solid var(--line);border-radius:14px;overflow:hidden;box-shadow:var(--shadow)}
+.panel-empty{padding:27px 15px;text-align:center;color:var(--muted);font-size:13px}
+.table-wrap{overflow-x:auto}table{width:100%;border-collapse:collapse;min-width:470px}
+th,td{padding:13px 15px;text-align:left;border-bottom:1px solid var(--line);font-size:13px}
+th{background:#f8fafc;color:var(--muted);font-weight:700}
+tbody tr:last-child td{border-bottom:0}
+.bottom-nav{
+  position:fixed;z-index:20;left:0;right:0;bottom:0;
+  display:grid;grid-template-columns:repeat(5,1fr);gap:2px;
+  padding:8px 5px calc(8px + env(safe-area-inset-bottom));
+  background:rgba(255,255,255,.97);border-top:1px solid var(--line);
+  box-shadow:0 -4px 16px rgba(25,55,90,.06)
 }
-.card small{color:var(--muted)}
-.value{
-  font-size:23px;
-  font-weight:bold;
-  margin-top:10px;
+.nav-btn{border:0;background:transparent;color:var(--muted);padding:5px 2px;border-radius:10px;font-size:11px;cursor:pointer;min-width:0}
+.nav-icon{display:block;font-size:21px;line-height:25px;margin-bottom:3px}
+.nav-btn.active{color:var(--blue);background:var(--blue-soft);font-weight:700}
+.page-placeholder{display:none;background:#fff;border:1px solid var(--line);border-radius:14px;padding:24px;min-height:220px}
+.page-placeholder h2{margin:0 0 10px}.page-placeholder p{color:var(--muted);line-height:1.5}
+.back-btn{border:0;background:var(--blue-soft);color:var(--blue);padding:9px 13px;border-radius:9px;font-weight:700}
+@media(max-width:760px){
+  .topbar{min-height:60px;padding:11px 15px}
+  .brand-name{font-size:21px}.brand-sub{font-size:11px}
+  .layout{padding:12px 10px 18px}
+  .welcome{padding:17px 16px;border-radius:14px;margin-bottom:12px}
+  .welcome h1{font-size:19px}.welcome p{font-size:13px}.welcome-mark{font-size:29px}
+  .stats{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+  .stat{padding:12px;border-radius:12px}
+  .stat-label{font-size:12px}.stat-icon{width:29px;height:29px;font-size:15px}
+  .stat-value{font-size:21px;margin-top:8px}
+  .section{margin-top:19px}.section h2{font-size:17px}
+  .menu-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+  .menu-item{min-height:100px;padding:12px 7px;border-radius:12px}
+  .menu-icon{width:39px;height:39px;font-size:21px;margin-bottom:8px}
+  .menu-label{font-size:13px}
+  .section-note{font-size:11px}
+  th,td{padding:11px 10px;font-size:12px}
+  .panel-empty{padding:22px 12px}
 }
-.section{
-  margin-top:22px;
+@media(max-width:360px){
+  .admin{padding:8px 9px;font-size:12px}
+  .welcome h1{font-size:17px}
+  .stat-value{font-size:19px}
+  .menu-label{font-size:12px}
 }
-.section h3{margin-bottom:13px}
-.actions{
-  display:grid;
-  grid-template-columns:repeat(4,1fr);
-  gap:12px;
-}
-.action{
-  background:white;
-  border:1px solid var(--line);
-  border-radius:12px;
-  padding:17px 10px;
-  text-align:center;
-  cursor:pointer;
-  font-size:14px;
-}
-.action span{
-  display:block;
-  font-size:26px;
-  margin-bottom:9px;
-}
-.action:hover{background:#eaf4fc}
-.panel{
-  background:white;
-  border:1px solid var(--line);
-  border-radius:12px;
-  padding:17px;
-}
-table{width:100%;border-collapse:collapse}
-th,td{
-  padding:13px 10px;
-  border-bottom:1px solid var(--line);
-  text-align:left;
-  font-size:13px;
-}
-th{color:var(--muted);background:#f8fafc}
-.status{
-  color:#16834b;
-  background:#e4f7eb;
-  padding:5px 9px;
-  border-radius:20px;
-  font-size:11px;
-}
-nav{
-  display:flex;
-  justify-content:space-around;
-  position:fixed;
-  bottom:0;
-  left:0;
-  right:0;
-  background:white;
-  border-top:1px solid var(--line);
-  padding:10px 4px;
-  z-index:10;
-}
-nav button{
-  border:0;
-  background:none;
-  color:var(--muted);
-  font-size:12px;
-  cursor:pointer;
-}
-nav button b{display:block;font-size:21px;margin-bottom:3px}
-nav button.active{color:var(--blue)}
-footer{height:65px}
-@media(max-width:700px){
-  header{padding:14px 15px}
-  main{padding:12px 10px}
-  .welcome{padding:17px}
-  .welcome h2{font-size:19px}
-  .grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
-  .card{padding:12px}
-  .value{font-size:19px}
-  .actions{grid-template-columns:repeat(2,1fr);gap:8px}
-  .action{padding:13px 6px}
-  .section{margin-top:16px}
-  th,td{padding:10px 6px;font-size:11px}
-}
-@media(min-width:701px){
-  nav{position:static;margin-top:25px;border-radius:12px}
-  footer{height:10px}
+@media(min-width:761px){
+  body{padding-bottom:20px}
+  .bottom-nav{position:static;max-width:1180px;margin:18px auto 0;border:1px solid var(--line);border-radius:13px;box-shadow:none}
 }
 </style>
 </head>
 <body>
-
-<header>
-  <div>
-    <div class="logo">MYstore</div>
-    <small>Management & POS System</small>
+<header class="topbar">
+  <div class="brand">
+    <div class="brand-name">MYstore</div>
+    <div class="brand-sub">Management &amp; POS System</div>
   </div>
-  <div>Admin ▾</div>
+  <button class="admin" type="button" onclick="showPage('Pengaturan')">Admin ▾</button>
 </header>
 
-<main>
-  <div class="welcome">
-    <h2>Selamat Datang di MYstore</h2>
-    <p>Dashboard toko dan sistem kasir</p>
-  </div>
+<main class="layout">
+  <section id="dashboard">
+    <div class="welcome">
+      <div><h1>Selamat Datang di MYstore</h1><p>Dashboard toko dan sistem kasir</p></div>
+      <div class="welcome-mark" aria-hidden="true">▦</div>
+    </div>
 
-  <div class="grid">
-    <div class="card">
-      <small>Total Penjualan</small>
-      <div class="value">Rp 0</div>
+    <div class="stats">
+      <article class="stat"><div class="stat-top"><span class="stat-label">Total Penjualan</span><span class="stat-icon">💰</span></div><div class="stat-value">Rp 0</div></article>
+      <article class="stat"><div class="stat-top"><span class="stat-label">Total Transaksi</span><span class="stat-icon">🧾</span></div><div class="stat-value">0</div></article>
+      <article class="stat"><div class="stat-top"><span class="stat-label">Total Produk</span><span class="stat-icon">📦</span></div><div class="stat-value">0</div></article>
+      <article class="stat"><div class="stat-top"><span class="stat-label">Stok Menipis</span><span class="stat-icon">⚠️</span></div><div class="stat-value">0</div></article>
     </div>
-    <div class="card">
-      <small>Total Transaksi</small>
-      <div class="value">0</div>
-    </div>
-    <div class="card">
-      <small>Total Produk</small>
-      <div class="value">0</div>
-    </div>
-    <div class="card">
-      <small>Stok Menipis</small>
-      <div class="value">0</div>
-    </div>
-  </div>
 
-  <div class="section">
-    <h3>Menu Utama</h3>
-    <div class="actions">
-      <div class="action" onclick="openPage('Kasir')"><span>🛒</span>Kasir</div>
-      <div class="action" onclick="openPage('Produk')"><span>📦</span>Master Produk</div>
-      <div class="action" onclick="openPage('Penjualan')"><span>💰</span>Penjualan</div>
-      <div class="action" onclick="openPage('Pembelian')"><span>🧾</span>Pembelian</div>
-      <div class="action" onclick="openPage('Stok')"><span>🏬</span>Persediaan</div>
-      <div class="action" onclick="openPage('Laporan')"><span>📊</span>Laporan</div>
-      <div class="action" onclick="openPage('Pelanggan')"><span>👥</span>Pelanggan</div>
-      <div class="action" onclick="openPage('Pengaturan')"><span>⚙️</span>Pengaturan</div>
-    </div>
-  </div>
+    <section class="section">
+      <div class="section-head"><h2>Menu Utama</h2><span class="section-note">Pilih modul</span></div>
+      <div class="menu-grid">
+        <button class="menu-item" onclick="showPage('Kasir')"><span class="menu-icon">🛒</span><span class="menu-label">Kasir</span></button>
+        <button class="menu-item" onclick="showPage('Produk')"><span class="menu-icon">📦</span><span class="menu-label">Master Produk</span></button>
+        <button class="menu-item" onclick="showPage('Penjualan')"><span class="menu-icon">💰</span><span class="menu-label">Penjualan</span></button>
+        <button class="menu-item" onclick="showPage('Pembelian')"><span class="menu-icon">🧾</span><span class="menu-label">Pembelian</span></button>
+        <button class="menu-item" onclick="showPage('Persediaan')"><span class="menu-icon">🏬</span><span class="menu-label">Persediaan</span></button>
+        <button class="menu-item" onclick="showPage('Laporan')"><span class="menu-icon">📊</span><span class="menu-label">Laporan</span></button>
+        <button class="menu-item" onclick="showPage('Pelanggan')"><span class="menu-icon">👥</span><span class="menu-label">Pelanggan</span></button>
+        <button class="menu-item" onclick="showPage('Pengaturan')"><span class="menu-icon">⚙️</span><span class="menu-label">Pengaturan</span></button>
+      </div>
+    </section>
 
-  <div class="section">
-    <h3>Penjualan Terbaru</h3>
-    <div class="panel">
-      <table>
-        <thead>
-          <tr>
-            <th>Transaksi</th>
-            <th>Tanggal</th>
-            <th>Total</th>
-            <th>Status</th>
-          </tr>
-        </thead>
-        <tbody id="sales">
-          <tr>
-            <td colspan="4" style="text-align:center;color:#718096">
-              Belum ada transaksi
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  </div>
+    <section class="section">
+      <div class="section-head"><h2>Penjualan Terbaru</h2><span class="section-note">Ringkasan transaksi</span></div>
+      <div class="panel">
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Transaksi</th><th>Tanggal</th><th>Total</th><th>Status</th></tr></thead>
+            <tbody><tr><td colspan="4" class="panel-empty">Belum ada transaksi</td></tr></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+  </section>
 
-  <nav>
-    <button class="active" onclick="openPage('Home')"><b>⌂</b>Home</button>
-    <button onclick="openPage('Kasir')"><b>🛒</b>Kasir</button>
-    <button onclick="openPage('Produk')"><b>📦</b>Produk</button>
-    <button onclick="openPage('Laporan')"><b>▥</b>Laporan</button>
-    <button onclick="openPage('Pengaturan')"><b>⚙</b>Menu</button>
-  </nav>
-  <footer></footer>
+  <section id="modulePage" class="page-placeholder">
+    <button class="back-btn" onclick="showPage('Home')">← Kembali ke Dashboard</button>
+    <h2 id="moduleTitle" style="margin-top:22px"></h2>
+    <p>Halaman modul ini belum diaktifkan. Tampilan dashboard dan navigasi MYstore sudah disiapkan; fitur transaksi dan penyimpanan data perlu dihubungkan pada tahap berikutnya.</p>
+  </section>
 </main>
 
+<nav class="bottom-nav" aria-label="Navigasi utama">
+  <button class="nav-btn active" data-page="Home" onclick="showPage('Home')"><span class="nav-icon">⌂</span>Home</button>
+  <button class="nav-btn" data-page="Kasir" onclick="showPage('Kasir')"><span class="nav-icon">🛒</span>Kasir</button>
+  <button class="nav-btn" data-page="Produk" onclick="showPage('Produk')"><span class="nav-icon">📦</span>Produk</button>
+  <button class="nav-btn" data-page="Laporan" onclick="showPage('Laporan')"><span class="nav-icon">▥</span>Laporan</button>
+  <button class="nav-btn" data-page="Pengaturan" onclick="showPage('Pengaturan')"><span class="nav-icon">⚙</span>Menu</button>
+</nav>
+
 <script>
-function openPage(page){
-  if(page==="Home") return;
-  alert("Menu "+page+" akan dikembangkan pada tahap berikutnya.");
+function showPage(page){
+  const home=document.getElementById('dashboard');
+  const module=document.getElementById('modulePage');
+  const isHome=page==='Home';
+  home.style.display=isHome?'block':'none';
+  module.style.display=isHome?'none':'block';
+  document.getElementById('moduleTitle').textContent=page;
+  document.querySelectorAll('.nav-btn').forEach(btn=>{
+    btn.classList.toggle('active',btn.dataset.page===page || (page==='Persediaan' && btn.dataset.page==='Produk') || (page==='Penjualan' && btn.dataset.page==='Laporan') || (page==='Pembelian' && btn.dataset.page==='Menu') || (page==='Pelanggan' && btn.dataset.page==='Menu'));
+  });
+  window.scrollTo({top:0,behavior:'smooth'});
 }
 </script>
-
 </body>
 </html>
